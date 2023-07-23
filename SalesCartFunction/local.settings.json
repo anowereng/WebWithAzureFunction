@@ -1,0 +1,10 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet"
+  },
+  "ConnectionStrings": {
+    "AppDbContext": "Server=.;Database=shoopingcartdb;User Id=sa; Password=007;TrustServerCertificate=True"
+  }
+}

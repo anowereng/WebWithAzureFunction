@@ -1,0 +1,74 @@
+﻿@model AzureWebApp.ViewModels.ShoopingCartViewModel
+@using (Html.BeginForm())
+{
+    <h4>Shopping Cart</h4>
+    <hr />
+
+    <table class="table">
+        <tr class="btn-secondary">
+            <th>
+                @Html.DisplayName("Product Name")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShoopingCartAddDetails[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShoopingCartAddDetails[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShoopingCartAddDetails[0].Total)
+            </th>
+        </tr>
+
+        @for (var i = 0; i < Model.ShoopingCartAddDetails.Count; i++)
+        {
+            @Html.HiddenFor(modelItem => Model.ShoopingCartAddDetails[i].ProductId)
+            <tr class="btn-light">
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ShoopingCartAddDetails[i].ProductName)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => Model.ShoopingCartAddDetails[i].Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ShoopingCartAddDetails[i].Price)
+                </td>
+                <th>
+                    @Html.DisplayNameFor(model => Model.ShoopingCartAddDetails[i].Total)
+                </th>
+            </tr>
+        }
+
+    </table>
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerName,"Customer Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerMobile,"Customer Mobile", htmlAttributes: new { @class = "control-label col-md-2 mt-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerMobile, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShippingAddress,"Shipping Address", htmlAttributes: new { @class = "control-label col-md-2 mt-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ShippingAddress, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Proceed To CheckOut" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}  
