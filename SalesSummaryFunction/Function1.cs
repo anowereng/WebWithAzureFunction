@@ -24,17 +24,20 @@ namespace SalesSummaryFunction
         private readonly IServiceScopeFactory _serviceScopeFactory;
         public IMailSenderService _mailService;
         private readonly IConfiguration _config;
+        public  ILogger _logger;
         public Function1(IServiceScopeFactory serviceScopeFactory, IMailSenderService mailService, IConfiguration config)
         {
             _serviceScopeFactory = serviceScopeFactory;
             _mailService = mailService;
             _config =  config;
+
         }
 
 
         [FunctionName("Function1")]
-        public async Task RunAsync([TimerTrigger("*/60 * * * * *", RunOnStartup = true)] TimerInfo myTimer, ILogger log)
+        public async Task RunAsync([TimerTrigger("*/20 * * * * *", RunOnStartup = true)] TimerInfo myTimer, ILogger log)
         {
+            _logger = log;
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
             await SaleSummaryAsync();
         }
@@ -45,6 +48,7 @@ namespace SalesSummaryFunction
             {
                 using (var scope = _serviceScopeFactory.CreateScope())
                 {
+
                     var _context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                     var totalSales = _context.Orders.Where(x => x.Date == DateTime.Now.Date).Sum(x => x.Total);
                     var emailText = GetMailText(totalSales);
@@ -55,6 +59,7 @@ namespace SalesSummaryFunction
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
             }
         }
 

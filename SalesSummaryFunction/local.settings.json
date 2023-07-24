@@ -9,6 +9,6 @@
     "sendGridFromName": "Sales Summary"
   },
   "ConnectionStrings": {
-    "AppDbContext": "Server=.;Database=shoopingcartdb;User Id=sa; Password=007;TrustServerCertificate=True"
+    "AppDbContext": "Server=192.168.0.161;Database=SalesCartDB;user id=sa; password=Pass@123;Trusted_Connection=False;MultipleActiveResultSets=true;Encrypt=False;"
   }
 }
